@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "697570753393",
+    "firebase_url": "https://cotacaofacil-a840c.firebaseio.com",
+    "project_id": "cotacaofacil-a840c",
+    "storage_bucket": "cotacaofacil-a840c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697570753393:android:2f76f018278e27489c94d0",
+        "android_client_info": {
+          "package_name": "com.roveda.currency_info"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697570753393-k1cditj3ecle62s90843bvcmd82dtmm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApUDD5Dwjhk0e3DUcQE-XrxsphxLaStDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697570753393-k1cditj3ecle62s90843bvcmd82dtmm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

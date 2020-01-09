@@ -1,16 +1,20 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import 'package:admob_flutter/admob_flutter.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 const request = "https://api.hgbrasil.com/finance?format=json&key=1bef1c18";
 
 void main() async {
-  Admob.initialize(getAppId());
-  runApp(Application());
+  runApp(MaterialApp(
+    home: Home(),
+    theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)))),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 Future<Map> getData() async {
@@ -18,30 +22,12 @@ Future<Map> getData() async {
   return json.decode(response.body);
 }
 
-class Application extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _ApplicationState createState() => _ApplicationState();
+  _HomeState createState() => _HomeState();
 }
 
-String getAppId() {
-  if (Platform.isIOS) {
-    return '';
-  } else if (Platform.isAndroid) {
-    return 'ca-app-pub-8682283257399936/7918334881';
-  }
-  return null;
-}
-
-String getBannerAdId() {
-  if (Platform.isIOS) {
-    return '';
-  } else if (Platform.isAndroid) {
-    return 'ca-app-pub-8682283257399936~3851382770';
-  }
-  return null;
-}
-
-class _ApplicationState extends State<Application> {
+class _HomeState extends State<Home> {
   final realController = TextEditingController();
   final dollarController = TextEditingController();
   final euroController = TextEditingController();
@@ -50,9 +36,49 @@ class _ApplicationState extends State<Application> {
   double euro;
   double bitcoin;
 
+  MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    keywords: <String>['dinheiro', 'economia', 'viagens', 'viajar', 'bitcoin'],
+    childDirected: false,
+    testDevices: <String>[],
+  );
+
+  BannerAd myBanner;
+
+  int clicks = 0;
+  void startBanner() {
+    myBanner = BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.smartBanner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event is $event");
+      },
+    );
+  }
+
+  void displayBanner() {
+    myBanner
+      ..load()
+      ..show(
+        anchorOffset: 0.0,
+        anchorType: AnchorType.bottom,
+      );
+  }
+
+  @override
+  void dispose() {
+    myBanner?.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-8682283257399936~3851382770");
+
+    startBanner();
+    displayBanner();
   }
 
   void _clearAll() {
@@ -93,14 +119,13 @@ class _ApplicationState extends State<Application> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("\$ Conversão Fácil \$"),
-          backgroundColor: Colors.purple,
-          centerTitle: true,
-        ),
-        body: FutureBuilder<Map>(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("\$ Conversão Fácil \$"),
+        backgroundColor: Colors.purple,
+        centerTitle: true,
+      ),
+      body: FutureBuilder<Map>(
           future: getData(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
@@ -128,19 +153,10 @@ class _ApplicationState extends State<Application> {
                   bitcoin = snapshot.data["results"]["bitcoin"]
                       ["mercadobitcoin"]["last"];
                   return SingleChildScrollView(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 60.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                          ),
-                          child: AdmobBanner(
-                          adUnitId: getBannerAdId(),
-                          adSize: AdmobBannerSize.BANNER,
-                        ),
-                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -217,7 +233,7 @@ class _ApplicationState extends State<Application> {
                               ),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
                               Text(
-                                'R\$ ' + dollar.toStringAsFixed(2),
+                                'R\$ ' + bitcoin.toStringAsFixed(2),
                                 style: TextStyle(fontSize: 18.0),
                               ),
                             ],
@@ -250,12 +266,6 @@ class _ApplicationState extends State<Application> {
                 }
             }
           }),
-      ),
-      theme: ThemeData(
-          inputDecorationTheme: InputDecorationTheme(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white)))),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

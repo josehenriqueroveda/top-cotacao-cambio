@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
   int clicks = 0;
   void startBanner() {
     myBanner = BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
+      adUnitId: "ca-app-pub-8682283257399936/7918334881",
       size: AdSize.smartBanner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("\$ Conversão Fácil \$"),
+        title: Text("\$ Cotação Fácil \$"),
         backgroundColor: Colors.purple,
         centerTitle: true,
       ),

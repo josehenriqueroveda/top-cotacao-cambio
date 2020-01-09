@@ -1,19 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:admob_flutter/admob_flutter.dart';
 
 const request = "https://api.hgbrasil.com/finance?format=json&key=1bef1c18";
 
 void main() async {
-  runApp(MaterialApp(
-    home: Home(),
-    theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)))),
-    debugShowCheckedModeBanner: false,
-  ));
+  Admob.initialize(getAppId());
+  runApp(Application());
 }
 
 Future<Map> getData() async {
@@ -21,12 +18,30 @@ Future<Map> getData() async {
   return json.decode(response.body);
 }
 
-class Home extends StatefulWidget {
+class Application extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _ApplicationState createState() => _ApplicationState();
 }
 
-class _HomeState extends State<Home> {
+String getAppId() {
+  if (Platform.isIOS) {
+    return '';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-8682283257399936/7918334881';
+  }
+  return null;
+}
+
+String getBannerAdId() {
+  if (Platform.isIOS) {
+    return '';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-8682283257399936~3851382770';
+  }
+  return null;
+}
+
+class _ApplicationState extends State<Application> {
   final realController = TextEditingController();
   final dollarController = TextEditingController();
   final euroController = TextEditingController();
@@ -34,6 +49,11 @@ class _HomeState extends State<Home> {
   double dollar;
   double euro;
   double bitcoin;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _clearAll() {
     realController.text = "";
@@ -73,13 +93,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("\$ Conversão Fácil \$"),
-        backgroundColor: Colors.purple,
-        centerTitle: true,
-      ),
-      body: FutureBuilder<Map>(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("\$ Conversão Fácil \$"),
+          backgroundColor: Colors.purple,
+          centerTitle: true,
+        ),
+        body: FutureBuilder<Map>(
           future: getData(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
@@ -111,6 +132,15 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: AdmobBanner(
+                          adUnitId: getBannerAdId(),
+                          adSize: AdmobBannerSize.BANNER,
+                        ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -130,8 +160,12 @@ class _HomeState extends State<Home> {
                             children: <Widget>[
                               Icon(Icons.monetization_on),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
-                              Text('Dollar', 
-                                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                              Text(
+                                'Dollar',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
                               Text(
                                 'R\$ ' + dollar.toStringAsFixed(2),
@@ -147,8 +181,12 @@ class _HomeState extends State<Home> {
                             children: <Widget>[
                               Icon(Icons.euro_symbol),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
-                              Text('Euro', 
-                                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                              Text(
+                                'Euro',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
                               Text(
                                 'R\$ ' + euro.toStringAsFixed(2),
@@ -163,12 +201,20 @@ class _HomeState extends State<Home> {
                           child: Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(6.0, 0.0, 4.0, 0.0),
-                                child: Text('₿', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
+                                padding: const EdgeInsets.fromLTRB(
+                                    6.0, 0.0, 4.0, 0.0),
+                                child: Text('₿',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0)),
                               ),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
-                              Text('Bitcoin', 
-                                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                              Text(
+                                'Bitcoin',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               Padding(padding: EdgeInsets.only(right: 4.0)),
                               Text(
                                 'R\$ ' + dollar.toStringAsFixed(2),
@@ -204,6 +250,12 @@ class _HomeState extends State<Home> {
                 }
             }
           }),
+      ),
+      theme: ThemeData(
+          inputDecorationTheme: InputDecorationTheme(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)))),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

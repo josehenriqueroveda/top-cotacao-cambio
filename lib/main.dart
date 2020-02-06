@@ -225,6 +225,7 @@ class _HomeState extends State<Home> {
           IconButton(
               icon: Icon(Icons.info_outline),
               onPressed: () {
+                 myBanner?.dispose();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -236,6 +237,7 @@ class _HomeState extends State<Home> {
               IconButton(
               icon: Icon(Icons.cached),
               onPressed: () {
+                 myBanner?.dispose();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -422,6 +424,7 @@ class _HomeState extends State<Home> {
                               child: CupertinoButton(
                                   color: Colors.blueAccent,
                                   onPressed: () {
+                                     myBanner?.dispose();
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

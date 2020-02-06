@@ -193,7 +193,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
                                     padding: const EdgeInsets.fromLTRB(
                                         12.0, 30.0, 12.0, 30.0),
                                     child: Container(
-                                      width: 100.0,
+                                      width: 120.0,
                                       decoration: BoxDecoration(
                                         color: variation < 0
                                             ? Colors.red
@@ -213,7 +213,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
                                           Padding(
                                             padding: const EdgeInsets.all(3.0),
                                             child: Text(
-                                              '$variation',
+                                              '$variation %',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 18.0),

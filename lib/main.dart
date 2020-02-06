@@ -163,6 +163,7 @@ class _HomeState extends State<Home> {
   void startBanner() {
     myBanner = BannerAd(
       adUnitId: "ca-app-pub-8682283257399936/7918334881",
+      //adUnitId: BannerAd.testAdUnitId,
       size: AdSize.smartBanner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
@@ -205,8 +206,9 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: FabCircularMenu(
+        fabMargin: EdgeInsets.only(bottom: 80.0),
+        ringDiameter: 300.0,
         ringWidth: 60.0,
-        
         fabColor: Colors.blueAccent[300],
         fabOpenColor: Color(0xff18043b),
         fabOpenIcon: Icon(Icons.menu),
@@ -284,6 +286,7 @@ class _HomeState extends State<Home> {
                       bitcoin = snapshot.data["results"]["bitcoin"]
                           ["mercadobitcoin"]["last"];
                       return SingleChildScrollView(
+                        padding: EdgeInsets.only(bottom: 90.0),
                         child: Column(
                           children: <Widget>[
                             Padding(
@@ -303,7 +306,7 @@ class _HomeState extends State<Home> {
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               padding:
-                                  EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                  EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -384,8 +387,7 @@ class _HomeState extends State<Home> {
                               color: Colors.lightBlue,
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  10.0, 10.0, 20.0, 10.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -450,7 +452,7 @@ class _HomeState extends State<Home> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(6.0),
             child: Text(
               'Ver mercado de ações:',
               textAlign: TextAlign.center,

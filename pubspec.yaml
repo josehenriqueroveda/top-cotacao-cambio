@@ -11,7 +11,7 @@ description: Currency cotation
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.4+5
+version: 1.0.4+6
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -29,6 +29,7 @@ dependencies:
   fab_circular_menu: ^0.1.4
   launch_review: ^2.0.0
   flutter_native_splash: ^0.1.9
+  connection_verify: ^1.0.3
 
 
 dev_dependencies:

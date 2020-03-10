@@ -1,3 +1,4 @@
+import 'package:connection_verify/connection_verify.dart';
 import 'package:currency_info/pages/about.dart';
 import 'package:currency_info/pages/calculator.dart';
 import 'package:currency_info/pages/stock.dart';
@@ -24,8 +25,13 @@ void main() async {
 }
 
 Future<Map> getData() async {
-  http.Response response = await http.get(request);
-  return json.decode(response.body);
+  bool isConnect = await ConnectionVerify.connectionStatus();
+  if (isConnect) {
+    http.Response response = await http.get(request);
+    return json.decode(response.body);
+  } else {
+    return Map();
+  }
 }
 
 class Home extends StatefulWidget {
@@ -151,7 +157,8 @@ class _HomeState extends State<Home> {
       'vender',
       'bolsa de valores',
       'bovespa',
-      'ações'
+      'ações',
+      'money'
     ],
     childDirected: false,
     testDevices: <String>[],
@@ -201,7 +208,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cotação Fácil"),
+        title: Text("Top Cotações"),
         backgroundColor: Color(0xff18043b),
         centerTitle: true,
       ),
@@ -225,23 +232,25 @@ class _HomeState extends State<Home> {
           IconButton(
               icon: Icon(Icons.info_outline),
               onPressed: () {
-                 myBanner?.dispose();
+                myBanner?.dispose();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => About()),
+                  MaterialPageRoute(builder: (context) => About()),
                 );
               },
               iconSize: 48.0,
               color: Color(0xff18043b)),
-              IconButton(
+          IconButton(
               icon: Icon(Icons.cached),
               onPressed: () {
-                 myBanner?.dispose();
+                myBanner?.dispose();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Calculator(dollar: dollar, euro: euro,)),
+                      builder: (context) => Calculator(
+                            dollar: dollar,
+                            euro: euro,
+                          )),
                 );
               },
               iconSize: 48.0,
@@ -424,7 +433,7 @@ class _HomeState extends State<Home> {
                               child: CupertinoButton(
                                   color: Colors.blueAccent,
                                   onPressed: () {
-                                     myBanner?.dispose();
+                                    myBanner?.dispose();
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

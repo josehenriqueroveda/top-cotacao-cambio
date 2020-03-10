@@ -5,7 +5,7 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cotação Fácil"),
+        title: Text("Top Cotações"),
         backgroundColor: Color(0xff18043b),
         centerTitle: true,
       ),

@@ -25,3 +25,9 @@ Sempre que você precisar saber de como está a economia de mercado, como está 
 Comece agora a despertar o seu perfil de investidor, conhecendo o mercado de ações e melhore a sua educação financeira, para posteriormente poder das passos mais largos para crescer o seu capital!
 
 ![](https://lh3.googleusercontent.com/XCtoqF8cUa7MIM8MFa413Q9uPDQD1nE_PrOEPdA3BhL3qvD383hCv2485iFyZMYE8w=w1294-h601) ![](https://lh3.googleusercontent.com/-wPeH-PQ1I_Bu_Ye2UzTlfSiD8pTxr6MpikN8w8_tpQI2rKU5knvr0DoCa5H8pU0TA=w1294-h601) ![](https://lh3.googleusercontent.com/voX7rloA0d7wMyZHxZNd2j7a_AYBoHcXZ_ns1QN31H3IbksqGApucbHzOQ9HLHLviGQ4=w1294-h601) ![](https://lh3.googleusercontent.com/AawfiYxl_pXSiLWJP2sNMm2AMEuzZJfaclAUYn4E0WI4IwRD5u5igQp6tzO5ZRAGvHc=w1294-h601)
+
+
+### About:
+
+> - 💻 **José Henrique Roveda**
+> - 📨 Contact me on [LinkedIn](https://www.linkedin.com/in/jhroveda/)

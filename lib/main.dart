@@ -11,7 +11,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:launch_review/launch_review.dart';
 
-const request = "https://api.hgbrasil.com/finance?format=json&key=1bef1c18";
+const request = "https://api.hgbrasil.com/finance?format=json&key=mykey";
 
 void main() async {
   runApp(MaterialApp(
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
   int clicks = 0;
   void startBanner() {
     myBanner = BannerAd(
-      adUnitId: "ca-app-pub-8682283257399936/7918334881",
+      adUnitId: "ca-app-pub-mykey",
       //adUnitId: BannerAd.testAdUnitId,
       size: AdSize.smartBanner,
       targetingInfo: targetingInfo,
@@ -198,7 +198,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     FirebaseAdMob.instance
-        .initialize(appId: "ca-app-pub-8682283257399936~3851382770");
+        .initialize(appId: "ca-app-pub-mykey");
 
     startBanner();
     displayBanner();
